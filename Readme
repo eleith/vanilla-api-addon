@@ -1,0 +1,9 @@
+adds json APIs to the forum
+
+add this application to your forum, enable it. the following URLs/methods will now be accessible to you:
+
+/api/category
+/api/discussion (GET: id, limit, offset)
+/api/discussion/add (POST:Discussion/CategoryID, Discussion/Body, Discussion/Name, Discussion/TransientKey)
+/api/comment/add (POST: Comment/DiscussionID, Comment/CategoryID, Comment/Body, Comment/Name, Comment/TransientKey)
+/api/session
