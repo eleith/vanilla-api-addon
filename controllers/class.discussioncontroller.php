@@ -47,6 +47,7 @@ class DiscussionController extends APIController
 			   $Errors[] = 'You do not have permission to start discussions in this category';
 			else
 		   	$DiscussionID = $this->DiscussionModel->Save($FormValues, $this->CommentModel);
+		   	$this->SetJSON("DiscussionID", $DiscussionID);
 		}
 		else
 			$Errors[] = 'You do not have credentials to post as this user';
