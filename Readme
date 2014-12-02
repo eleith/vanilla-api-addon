@@ -2,8 +2,16 @@ adds json APIs to the forum
 
 add this application to your forum, enable it. the following URLs/methods will now be accessible to you:
 
-/api/category
-/api/discussion (GET: id, limit, offset)
-/api/discussion/add (POST:Discussion/CategoryID, Discussion/Body, Discussion/Name, Discussion/TransientKey)
-/api/comment/add (POST: Comment/DiscussionID, Comment/CategoryID, Comment/Body, Comment/Name, Comment/TransientKey)
-/api/session
+/api/loginapi (GET: user, pass)
+
+/api/categoryapi
+
+/api/discussionapi (GET: id, limit, offset)
+
+/api/discussionapi/add (POST: CategoryID, Body, Name, TransientKey, UserID)
+/api/discussionapi/remove (POST: DiscussionID, CategoryID, TransientKey, UserID)
+
+/api/commentapi/add (POST: DiscussionID, CategoryID, Body, TransientKey, UserID)
+/api/commentapi/remove (POST: CommentID, CategoryID, TransientKey, UserID)
+
+/api/sessionapi
