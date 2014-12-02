@@ -8,9 +8,10 @@ add this application to your forum, enable it. the following URLs/methods will n
 
 /api/discussionapi (GET: id, limit, offset)
 
-/api/discussionapi/add (POST:CategoryID, Body, Name, TransientKey, UserID)
-/api/discussionapi/remove (POST:CategoryID, DiscussionID, TransientKey, UserID)
+/api/discussionapi/add (POST: CategoryID, Body, Name, TransientKey, UserID)
+/api/discussionapi/remove (POST: DiscussionID, CategoryID, TransientKey, UserID)
 
-/api/commentapi/add (POST: DiscussionID, CategoryID, Body, Name, TransientKey)
+/api/commentapi/add (POST: DiscussionID, CategoryID, Body, TransientKey, UserID)
+/api/commentapi/remove (POST: CommentID, CategoryID, TransientKey, UserID)
 
 /api/sessionapi
