@@ -13,12 +13,13 @@ class APIController extends Gdn_Controller {
    public function __construct() 
 	{
       parent::__construct();
+
    }
    
    public function Initialize() 
 	{
       parent::Initialize();
-
+       
 		$this->_DeliveryMethod = DELIVERY_METHOD_JSON;
 		//$this->SetHeader("Content-Type", "application/json; charset=utf-8");
 		$this->SetHeader("Content-Type", "text/plain; charset=utf-8");

@@ -1,11 +1,21 @@
 <?php if (!defined('APPLICATION')) exit();
 
-class DiscussionController extends APIController 
+class DiscussionAPIController extends APIController 
 {
-   public $Uses = array('Form', 'Database', 'CategoryModel', 'DiscussionModel', 'CommentModel');
+    public $Uses = array('Form', 'Database', 'CategoryModel', 'DiscussionModel', 'CommentModel');
+
+
+    public function __construct() 
+	{
+      parent::__construct();
+      if (isset($_POST['UserID'])){
+      	Gdn::Session()->Start($_POST['UserID'], TRUE, TRUE);
+      }
+   	}
 
 	public function Index()
 	{
+
 		$Limit			= GetIncomingValue('limit', 5);
 		$Offset			= GetIncomingValue('offset', 0);
 		$DiscussionID	= GetIncomingValue('id', 0);
@@ -24,6 +34,7 @@ class DiscussionController extends APIController
 		}
 
 		$this->Render();
+		Gdn::Session()->End();
    }
 
 	/**
@@ -33,7 +44,7 @@ class DiscussionController extends APIController
    public function Add()
 	{
       $Session = Gdn::Session();
-		$Errors = array();
+	  $Errors = array();
 
       // Set the model on the form.
       $this->Form->SetModel($this->DiscussionModel);
@@ -41,7 +52,6 @@ class DiscussionController extends APIController
       if($this->Form->AuthenticatedPostBack() === TRUE) 
 		{
          $FormValues = $this->Form->FormValues();
-
          // Check category permissions
 			if(!$Session->CheckPermission('Vanilla.Discussions.Add', $FormValues['CategoryID']))
 			   $Errors[] = 'You do not have permission to start discussions in this category';
@@ -57,6 +67,41 @@ class DiscussionController extends APIController
 			$this->SetJSON("Errors", $Errors);
 
 		$this->Render();
+		Gdn::Session()->End();
+	}
+
+	/**
+    * Remove a discussion.
+    * @param int The category id to add the discussion to.
+    */
+   public function Remove()
+	{
+      $Session = Gdn::Session();
+		$Errors = array();
+
+      // Set the model on the form.
+      $this->Form->SetModel($this->DiscussionModel);
+
+      if($this->Form->AuthenticatedPostBack() === TRUE) 
+		{
+         $FormValues = $this->Form->FormValues();
+
+         // Check category permissions
+			if(!$Session->CheckPermission('Vanilla.Discussions.Add', $FormValues['CategoryID']))
+			   $Errors[] = 'You do not have permission to start discussions in this category';
+			else
+		   	$DiscussionID = $this->DiscussionModel->Delete($FormValues['DiscussionID']);
+		   	$this->SetJSON("removed", $DiscussionID);
+		}
+		else
+			$Errors[] = 'You do not have credentials to post as this user';
+
+		// Return the form errors
+		if(count($Errors) > 0)
+			$this->SetJSON("Errors", $Errors);
+
+		$this->Render();
+		Gdn::Session()->End();
 	}
 
 }

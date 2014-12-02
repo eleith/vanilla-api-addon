@@ -1,6 +1,6 @@
 <?php if (!defined('APPLICATION')) exit();
 
-class CommentController extends APIController 
+class CommentAPIController extends APIController 
 {
    public $Uses = array('Form', 'Database', 'CategoryModel', 'DiscussionModel', 'CommentModel');
 

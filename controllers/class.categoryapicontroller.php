@@ -1,6 +1,6 @@
 <?php if (!defined('APPLICATION')) exit();
 
-class CategoryController extends APIController 
+class CategoryAPIController extends APIController 
 {
    public $Uses = array('Gdn_Format', 'Database', 'CategoryModel', 'DiscussionModel');
 
